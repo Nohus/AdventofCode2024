@@ -1,5 +1,13 @@
 package utils
 
+fun Int.isEven(): Boolean = this % 2 == 0
+
+fun Int.isOdd(): Boolean = this % 2 != 0
+
+fun Long.isEven(): Boolean = this % 2 == 0L
+
+fun Long.isOdd(): Boolean = this % 2 != 0L
+
 fun <T> List<T>.getPermutations(): List<List<T>> {
     return if (size == 2) listOf(listOf(this[0], this[1]), listOf(this[1], this[0]))
     else map { initial ->
