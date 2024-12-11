@@ -22,3 +22,13 @@ fun <T> MutableList<T>.swap(indexA: Int, indexB: Int) {
     this[indexA] = this[indexB]
     this[indexB] = a
 }
+
+fun <T> List<T>.indexOf(sublist: List<T>): Int {
+    outer@for (i in 0..(lastIndex - sublist.lastIndex)) {
+        for (j in 0..sublist.lastIndex) {
+            if (this[i + j] != sublist[j]) continue@outer
+        }
+        return i
+    }
+    return -1
+}

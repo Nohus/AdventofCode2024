@@ -10,6 +10,18 @@ data class PointL(val x: Long, val y: Long) {
         val ORIGIN = PointL(0, 0)
     }
 
+    operator fun plus(other: PointL): PointL {
+        return PointL(x + other.x, y + other.y)
+    }
+
+    operator fun minus(other: PointL): PointL {
+        return PointL(x - other.x, y - other.y)
+    }
+
+    operator fun times(other: Int): PointL {
+        return PointL(x * other, y * other)
+    }
+
     fun move(direction: Direction, distance: Long = 1) = when (direction) {
         EAST -> PointL(x + distance, y)
         WEST -> PointL(x - distance, y)
@@ -32,6 +44,10 @@ data class Point(val x: Int, val y: Int) {
 
     operator fun minus(other: Point): Point {
         return Point(x - other.x, y - other.y)
+    }
+
+    operator fun times(other: Int): Point {
+        return Point(x * other, y * other)
     }
 
     fun move(direction: Direction, distance: Int = 1) = when (direction) {
@@ -74,6 +90,8 @@ data class Point(val x: Int, val y: Int) {
     }
 
     fun withinBounds(width: Int, height: Int) = x in 0 until width && y in 0 until height
+
+    fun withinBounds(size: Pair<Int, Int>) = x in 0 until size.first && y in 0 until size.second
 }
 
 fun <T> List<String>.toGrid(transform: (Char) -> T): Map<Point, T> {
@@ -104,6 +122,26 @@ fun <T> Map<Point, T>.printArea(visualization: (T) -> Char = { it.toString()[0] 
         }
         println()
     }
+}
+
+fun <T> Map<Point, T>.getWidth(): Int {
+    return maxOf { it.key.x } + 1
+}
+
+fun <T> Map<Point, T>.getHeight(): Int {
+    return maxOf { it.key.y } + 1
+}
+
+fun <T> Map<Point, T>.getXRange(): IntRange {
+    return 0..<getWidth()
+}
+
+fun <T> Map<Point, T>.getYRange(): IntRange {
+    return 0..<getHeight()
+}
+
+fun <T> Map<Point, T>.getBounds(): Pair<Int, Int> {
+    return getWidth() to getHeight()
 }
 
 @JvmName("printAreaBoolean")
