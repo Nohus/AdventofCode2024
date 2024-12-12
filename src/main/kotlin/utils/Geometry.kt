@@ -72,7 +72,7 @@ data class Point(val x: Int, val y: Int) {
 
     fun distance(other: Point) = sqrt((x - other.x).toDouble().pow(2) + (y - other.y).toDouble().pow(2))
 
-    fun getAdjacentSides(): List<Point> = listOf(
+    fun getNeighbors(): List<Point> = listOf(
         Point(x, y - 1), Point(x - 1, y), Point(x + 1, y), Point(x, y + 1),
     )
 
@@ -260,10 +260,10 @@ enum class Direction {
     }
 
     override fun toString() = when (this) {
-        NORTH -> "↑"
-        EAST -> "→"
-        SOUTH -> "↓"
-        WEST -> "←"
+        NORTH -> "⬆"
+        EAST -> "➡"
+        SOUTH -> "⬇"
+        WEST -> "⬅"
     }
 }
 

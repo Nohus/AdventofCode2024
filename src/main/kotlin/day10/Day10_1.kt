@@ -15,7 +15,7 @@ fun main() = solve { lines ->
             val point = path.last()
             val value = grid[point]!!
             if (value == 9) endpoints += point
-            else incompletePaths += point.getAdjacentSides()
+            else incompletePaths += point.getNeighbors()
                 .filter { grid[it] == value + 1 }
                 .map { path + it }
         }
