@@ -2,13 +2,12 @@ package day11
 
 import solve
 import utils.isEven
-import utils.toLongs
-import kotlin.math.sign
+import utils.splitLongs
 
 val cache = mutableMapOf<Pair<Long, Int>, Long>()
 
 fun main() = solve { lines ->
-    lines.first().toLongs().sumOf { calculateCount(it, 75) }
+    lines.first().splitLongs().sumOf { calculateCount(it, 75) }
 }
 
 fun blink(stone: Long): List<Long> = when {

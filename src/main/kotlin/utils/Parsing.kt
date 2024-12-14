@@ -1,15 +1,16 @@
 package utils
 
-fun String.toWords(): List<String> {
+fun String.splitWords(): List<String> {
     return split("\\s+".toRegex())
 }
 
-fun String.toInts(): List<Int> {
-    return toWords().map { it.toInt() }
+fun String.splitInts(): List<Int> {
+    return splitWords().map { it.toInt() }
 }
 
-fun String.toLongs(): List<Long> {
-    return toWords().map { it.toLong() }
+fun String.splitLongs(): List<Long> {
+    return splitWords().map { it.toLong() }
+}
 }
 
 fun MatchResult.getInts(): List<Int> {

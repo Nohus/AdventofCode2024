@@ -2,10 +2,10 @@ package day11
 
 import solve
 import utils.isEven
-import utils.toLongs
+import utils.splitLongs
 
 fun main() = solve { lines ->
-    var stones = lines.first().toLongs()
+    var stones = lines.first().splitLongs()
     repeat(25) {
         stones = stones.flatMap { stone ->
             val string = stone.toString()

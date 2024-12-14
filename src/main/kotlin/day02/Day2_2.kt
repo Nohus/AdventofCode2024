@@ -1,13 +1,12 @@
 package day02
 
 import solve
-import utils.toInts
-import utils.toPair
+import utils.splitInts
 import utils.withoutIndex
 import kotlin.math.abs
 
 fun main() = solve { lines ->
-    lines.map { it.toInts() }.count {
+    lines.map { it.splitInts() }.count {
         it.indices.any { index ->
             val new = it.withoutIndex(index)
             val sorted = new.sorted()
