@@ -11,6 +11,13 @@ fun String.splitInts(): List<Int> {
 fun String.splitLongs(): List<Long> {
     return splitWords().map { it.toLong() }
 }
+
+fun String.findInts(): List<Int> {
+    return """-?\d+""".toRegex().findAll(this).map { it.value.toInt() }.toList()
+}
+
+fun String.findLongs(): List<Long> {
+    return """-?\d+""".toRegex().findAll(this).map { it.value.toLong() }.toList()
 }
 
 fun MatchResult.getInts(): List<Int> {
