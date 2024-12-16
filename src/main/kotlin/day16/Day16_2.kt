@@ -8,7 +8,7 @@ import utils.Turn.RIGHT
 import utils.toGrid
 import java.util.PriorityQueue
 
-fun main() = solve { lines ->
+fun main() = solve(additionalTiming = true) { lines ->
     val grid = lines.toGrid().toMutableMap()
     val start = grid.entries.first { it.value == 'S' }.key
     val end = grid.entries.first { it.value == 'E' }.key
@@ -16,32 +16,40 @@ fun main() = solve { lines ->
     data class State(
         val point: Point,
         val direction: Direction,
-    )
-    data class Path(
-        val state: State,
         val cost: Int,
-        val previous: List<State>,
+        val previous: State?,
     )
 
-    val visited = mutableSetOf<State>()
-    val unvisited = PriorityQueue<Path>(compareBy { it.cost })
-    unvisited += Path(State(start, Direction.EAST), 0, emptyList())
+    val visited = mutableSetOf<Pair<Point, Direction>>()
+    val unvisited = PriorityQueue<State>(compareBy { it.cost })
+    unvisited += State(start, Direction.EAST, 0, null)
     val bestPoints = mutableSetOf(end)
     var bestCost = Int.MAX_VALUE
     while (unvisited.isNotEmpty()) {
-        val (state, cost, path) = unvisited.remove().also { visited += it.state }
+        val state = unvisited.remove().also { visited += (it.point to it.direction) }
         if (state.point == end) {
-            if (cost <= bestCost) {
-                bestCost = cost
-                bestPoints += path.map { it.point }
+            if (state.cost <= bestCost) {
+                bestCost = state.cost
+                var current = state
+                do {
+                    bestPoints += current.point
+                    current = current.previous
+                } while (current != null)
             } else break
         }
-        val newPath = path + state
-        unvisited += listOf(
-            Path(State(state.point, state.direction.rotate(LEFT)), cost + 1000, newPath),
-            Path(State(state.point, state.direction.rotate(RIGHT)), cost + 1000, newPath),
-            Path(State(state.point.move(state.direction), state.direction), cost + 1, newPath),
-        ).filter { it.state !in visited && grid[it.state.point] != '#' }
+        unvisited += buildList {
+            val left = state.direction.rotate(LEFT)
+            if (grid[state.point.move(left)] != '#') {
+                add(State(state.point, left, state.cost + 1000, state))
+            }
+            val right = state.direction.rotate(RIGHT)
+            if (grid[state.point.move(right)] != '#') {
+                add(State(state.point, right, state.cost + 1000, state))
+            }
+            if (grid[state.point.move(state.direction)] != '#') {
+                add(State(state.point.move(state.direction), state.direction, state.cost + 1, state))
+            }
+        }.filter { (it.point to it.direction) !in visited }
     }
     bestPoints.size
 }

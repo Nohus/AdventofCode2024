@@ -23,7 +23,6 @@ fun main() = solve { lines ->
     unvisited += State(start, Direction.EAST) to 0
     while (unvisited.isNotEmpty()) {
         val (state, cost) = unvisited.remove().also { visited += it.first }
-        unvisited.remove(state to cost)
         if (state.point == end) return@solve cost
         unvisited += listOf(
             State(state.point, state.direction.rotate(LEFT)) to cost + 1000,
