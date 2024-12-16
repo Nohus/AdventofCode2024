@@ -265,6 +265,18 @@ enum class Direction {
         SOUTH -> "⬇"
         WEST -> "⬅"
     }
+
+    companion object {
+        fun of(char: Char): Direction {
+            return when (char) {
+                '^' -> NORTH
+                '>' -> EAST
+                'v' -> SOUTH
+                '<' -> WEST
+                else -> throw IllegalArgumentException("Character $char is not a direction")
+            }
+        }
+    }
 }
 
 enum class Direction8 {
