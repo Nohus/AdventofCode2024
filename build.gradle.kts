@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "2.1.0"
     id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
     id("org.jetbrains.compose") version "1.7.1"
+    id("application")
 }
 
 repositories {
@@ -22,4 +23,8 @@ kotlin {
         freeCompilerArgs.add("-Xnon-local-break-continue")
         freeCompilerArgs.add("-Xmulti-dollar-interpolation")
     }
+}
+
+configure<JavaApplication> {
+    mainClass = "day16.Day16_2Kt"
 }
