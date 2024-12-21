@@ -9,10 +9,14 @@ fun Long.isEven(): Boolean = this % 2 == 0L
 fun Long.isOdd(): Boolean = this % 2 != 0L
 
 fun <T> List<T>.getPermutations(): List<List<T>> {
-    return if (size == 2) listOf(listOf(this[0], this[1]), listOf(this[1], this[0]))
-    else map { initial ->
-        (this - initial).getPermutations().map { permutation -> listOf(initial) + permutation }
-    }.flatten()
+    return when (size) {
+        0 -> listOf(emptyList())
+        1 -> listOf(this)
+        2 -> listOf(listOf(this[0], this[1]), listOf(this[1], this[0]))
+        else -> map { initial ->
+            (this - initial).getPermutations().map { permutation -> listOf(initial) + permutation }
+        }.flatten()
+    }
 }
 
 fun leastCommonMultiple(a: Int, b: Int): Int {
