@@ -19,6 +19,7 @@ dependencies {
 kotlin {
     jvmToolchain(17)
     compilerOptions {
+        freeCompilerArgs.add("-Xcontext-receivers")
         freeCompilerArgs.add("-Xwhen-guards")
         freeCompilerArgs.add("-Xnon-local-break-continue")
         freeCompilerArgs.add("-Xmulti-dollar-interpolation")

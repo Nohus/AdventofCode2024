@@ -1,4 +1,5 @@
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.runBlocking
 import java.awt.Toolkit
@@ -63,7 +64,7 @@ fun solveRawSuspending(
     trim: Boolean = true,
     solve: suspend CoroutineScope.(String) -> Any?
 ) {
-    val scope = CoroutineScope(Job())
+    val scope = CoroutineScope(Job() + Dispatchers.Default)
     val input = getInput().let { if (trim) it.trim() else it }
     printInput(input)
     solveRaw(input, additionalTiming) { runBlocking { scope.solve(it) } }
@@ -74,7 +75,7 @@ fun solveSuspending(
     trim: Boolean = true,
     solve: suspend CoroutineScope.(List<String>) -> Any?
 ) {
-    val scope = CoroutineScope(Job())
+    val scope = CoroutineScope(Job() + Dispatchers.Default)
     val input = getInput().let { if (trim) it.trim() else it }
     printInput(input)
     solveRaw(input.lines(), additionalTiming) { runBlocking { scope.solve(it) } }
