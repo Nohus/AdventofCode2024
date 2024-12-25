@@ -21,7 +21,10 @@ private fun getInputFile(): File {
 }
 
 private fun getInput(): String {
-    return getInputFile().readText()
+    val file = getInputFile()
+    val text = file.readText()
+    require(text.isNotEmpty()) { "Input file $file is empty" }
+    return text
 }
 
 fun printInput(input: String) {
