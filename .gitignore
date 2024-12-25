@@ -44,4 +44,3 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-**/day*/input*.txt

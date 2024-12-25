@@ -27,5 +27,5 @@ kotlin {
 }
 
 configure<JavaApplication> {
-    mainClass = "day16.Day16_2Kt"
+    mainClass = "day01.Day1_1Kt"
 }
